@@ -1,0 +1,101 @@
+---
+title: 'Trading Places:  Wall and Westbrook'
+author: Jacob Fahringer
+date: '2020-12-12'
+slug: trading-places
+coverImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city.jpg
+coverMeta: out
+metaAlignment: center
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImagePosition: left
+categories:
+  - player comparison
+tags:
+  - basketball
+  - Houston Rockets
+  - Washington Wizards
+  - John Wall
+  - Russell Westbrook
+  - Trade
+---
+
+When analyzing trades in the NBA, we normally look at things from the perspective of the teams. It makes sense as fans to view a deal through that lens since that's where we've sunk our time, energy, and money into, but when two blue-chip players are involved, we have an opportunity to flip that focus on its side and look at how the players fare in the deal. That's exactly what we have now with Russell Westbrook and John Wall gearing up for their first games with DC and Houston. On the surface, the two seem like good comparisons to one another:  they're both explosive, ball-dominant guards that have been sidelined in the past with major injuries and are trying to show they haven't lost a step as they approach 10+ years in the league.  
+
+A broader debate can be had about which city is better (DC) or owner is more difficult to manage (pass), but what does the data say about who won this trade? Is it easier for Wall to plug into Russ's spot and put up a similar level of production, or will the players in DC help Westbrook play to his strengths and continue his All-NBA play?
+
+```{r setup, include=FALSE}
+## Set up environment
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(readxl)
+library(knitr)
+library(kableExtra)
+```
+
+## Russell Westbrook
+
+We start with the new Wizards guard by looking at the Net Rating of his lineups since 2015. The goal is to isolate what makes Westbrook's teams successful when he's on the court and compare that to what Washington tried to do last season. With any luck, we'll be able to get a sense of how well Russ's new teammates can facilitate what he does best.
+
+```{r russ, echo=FALSE, results='asis'}
+## Looking at westbrook first
+westbrook = setDT(read_excel("westbrook_lineup.xlsx"))
+westbrook[,stl_tov := stl/tov]
+rus_gression = summary(lm(netrtg ~ factor(season) + all_nba + min100 + pts + fg + p3 + ft + reb100 + ast100 + stl + tov + blk + blka + pf + pfd, data = westbrook[westbrook == 1,]))
+rownames(rus_gression$coefficients) = c("Intercept","2016-2017","2017-2018","2018-2019","2019-2020","All-NBA Teammate","Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turnovers","Blocks","Blocks Against","Personal Fouls","Personal Fouls Against")
+column_spec(kable_paper(kable(rus_gression$coefficients,
+  caption = "Table 1: Westbrook Lineup Net Rating",
+  digits = 2),"hover",full_width=F),
+  c(2:5),color="white",
+  background = spec_color(rus_gression$coefficients[,4],end=.7,direction = -1))
+```
+
+Using data from NBA.com, I compiled Net Rating and box score stats (per 100 possessions) for the 173 lineups Westbrook played at least 12 minutes with over the past five seasons. The table above shows the coefficients and significance of these stats when regressed on Net Rating. We can see that playing with pace, scoring lots, shooting and rebounding well, and winning the takeaway battle are the significant drivers for success for Westbrook. None of these results are surprising, but they do point toward an up-tempo team focused outscoring opponents versus shutting them down. Perhaps just as important though is what variables are *insignificant*. Russ's teams don't seem to benefit from shooting beyond the arc or moving the ball around for assists. Additionally, having an All-NBA team member on the court (Durant, George, or Harden) seems more likely to have a *negative* impact than a positive one. This lack of results point towards the same iso-heavy style of play, with most of the attack coming from the mid-range or paint.  
+
+```{r wizards, echo=FALSE, results='asis'}
+wiz_rank = c(5,16,21,8,11,30,16,12,6,25,18,27,5)
+rname = c("Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turnovers","Blocks","Blocks Against","Personal Fouls","Personal Fouls Against")
+wiz_tab = cbind(rname,wiz_rank)
+column_spec(kable_paper(kable(wiz_tab,
+      align = c("l","c"),
+      caption = "Table 2: Wizards 2019-2020 Rankings",
+      col.names = c("","Rank")),"hover",full_width=F),
+      2, color = "white",
+      background = spec_color(wiz_rank, end = 0.7, direction = -1))
+```
+
+Now that we've laid out the environment Westbrook thrives in, we can look to see how that gels with what the Wizards did well in 2019-2020. The table above shows how they ranked in each of these categories (again per 100 possessions). Similar to the regression results above, there aren't many surprises when we look at the Wizards ranks. They were a below average team last season and the box score stats back that up. On the plus side, they played with a lot of pace, essentially matching the speed of the rockets (27.8 vs 27.7 seconds per possession). What is less clear is if this speed was beneficial to the offense. They were middle of the pack in terms of scoring and had a below average shooting percentage despite being proficient from three. This, along with being the worst rebounding team in the league, looks to be the biggest issue when trying to integrate Westbrook into the offense. He, along with free agent signing Robin Lopez, should help improve these ranks but it's unclear whether the rest of the roster is set up for this style of play. And then there's the question of how Bradley Beal fits into all of this. Though not technically a member of the All-NBA team, the perennial snub was tied with Westbrook for the fifth highest Usage Rate in the league last season according to Basketball Reference (James Harden was third). This, as we've seen throughout Russ's career, can go both ways and will be fascinating to watch as the season progresses.
+
+## John Wall
+
+Next, we turn to Wall and perform the same exercise with his lineup data from 2014-2018. The table below shows that, when healthy, the new Rocket guard found success by playing a similar style to Westbrook. Both players do best when their teams are shooting inside and rebounding efficiently but Wall is a bit less reliant on pushing the pace of play or limiting turnovers. His lineups also benefit from blocking shots and drawing fouls, suggesting a bit more of a physical style on both ends of the court.
+
+```{r wall, echo=FALSE, results='asis'}
+## Now Wall
+wall = setDT(read_excel("wall_lineup.xlsx"))
+wall[,stl_tov := stl/tov]
+wall_gression = summary(lm(netrtg ~ factor(season) + min100 + pts + fg + p3 + ft + reb100 + ast100 + stl + tov + blk + blka + pf + pfd, data = wall))
+rownames(wall_gression$coefficients) = c("Intercept","2015-2016","2016-2017","2017-2018","2018-2019","Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turnovers","Blocks","Blocks Against","Personal Fouls","Personal Fouls Against")
+column_spec(kable_paper(kable(wall_gression$coefficients,
+  caption = "Table 3: Wall Lineup Net Rating",
+  digits = 2),"hover",full_width=F),
+  c(2:5),color="white",
+  background = spec_color(wall_gression$coefficients[,4],end=.7,direction = -1))
+```
+
+With these tendencies in mind, we now turn to the Rockets' rankings for the 2019-2020 season. What's surprising is how well they compare to Washington across most of these stats. Both teams push the pace, shoot at a bottom third rate, and rebound and assist poorly. The good news for Wall is that the Rockets score a ton more points despite all of these deficiencies. They also do a good job of forcing turnovers and blocking shots, though two players (Westbrook and Robert Covington) that provided a large chunk of those steals and blocks are now gone. Christian Wood and DeMarcus Cousins signed on in the off-season and should help improve the rebounding numbers but they do little to mitigate the defensive issues caused by the departure of the other two. And none of this factors in the bearded elephant in the room. Currently, the Rockets seem intent on keeping Harden but it's unclear how the two will get along on the court. In recent years, Wall has had a Usage Rate on par with Paul George, which would slot him in as an ideal second option versus the 1A/1B splits both he and Harden have been accustomed to over the past several years. It remains to be seen however if Wall will be content with this sort of arrangement.  
+
+```{r rockets, echo=FALSE, results='asis'}
+rock_rank = c(2,6,22,24,8,26,29,4,10,11,15,19,18)
+rock_tab = cbind(rname,rock_rank)
+column_spec(kable_paper(kable(rock_tab,
+      align = c("l","c"),
+      caption = "Table 4: Rockets 2019-2020 Rankings",
+      col.names = c("","Rank")),"hover",full_width = F),
+      2, color = "white",
+      background = spec_color(rock_rank, end = 0.7, direction = -1))
+```
+
+## Final Verdict
+
+Overall, it seems like Westbrook and Wall will be joining fast-paced, iso-heavy teams, a style that plays to both of their strengths. Both will also have to navigate splitting possessions with ball-dominant, All-Star caliber players that may be close to the exit (Beal is a FA in 2021). Wall also has the added challenges of returning to the court for the first time in two years and joining a team trying to determine its identity with a new front office and coach. When you focus solely on the stats though, it still seems like Westbrook comes out slightly ahead of Wall in this trade. The Wizards are going to play very fast, causing havoc on the defensive end and get out in transition for high percentage shots. Russ, in return, will improve their rebounding and shooting, and as a result points per 100 possessions. Barring any fit issues with Beal or growing pains from Hachimura and the other young players in DC, he should be able to return to the All-NBA team and the Wizards to the playoffs. Wall, it should be said, also has the potential to regain his past form with an offense tailored towards his style but may be held back by the shakeups in Houston.
+
