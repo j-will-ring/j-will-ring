@@ -3,10 +3,10 @@ title: 'Trading Places:  Wall and Westbrook'
 author: Jacob Fahringer
 date: '2020-12-12'
 slug: trading-places
-coverImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city.jpg
+coverImage: "https://live.staticflickr.com/3059/2498516499_571810feea_h.jpg"
 coverMeta: out
 metaAlignment: center
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImage: "https://live.staticflickr.com/3059/2498516499_571810feea_h.jpg"
 thumbnailImagePosition: left
 categories:
   - player comparison
@@ -99,3 +99,4 @@ column_spec(kable_paper(kable(rock_tab,
 
 Overall, it seems like Westbrook and Wall will be joining fast-paced, iso-heavy teams, a style that plays to both of their strengths. Both will also have to navigate splitting possessions with ball-dominant, All-Star caliber players that may be close to the exit (Beal is a FA in 2021). Wall also has the added challenges of returning to the court for the first time in two years and joining a team trying to determine its identity with a new front office and coach. When you focus solely on the stats though, it still seems like Westbrook comes out slightly ahead of Wall in this trade. The Wizards are going to play very fast, causing havoc on the defensive end and get out in transition for high percentage shots. Russ, in return, will improve their rebounding and shooting, and as a result points per 100 possessions. Barring any fit issues with Beal or growing pains from Hachimura and the other young players in DC, he should be able to return to the All-NBA team and the Wizards to the playoffs. Wall, it should be said, also has the potential to regain his past form with an offense tailored towards his style but may be held back by the shakeups in Houston.
 
+(*"Houston Rockets Basketball Court" by Bukowsky18 is licensed under CC BY-NC-SA 2.0*)
