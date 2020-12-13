@@ -22,6 +22,8 @@ disqusShortname = "BulbBa-Blog"
 paginate = 7
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 canonifyurls = true
+enableRobotsTXT = true
+enableEmoji = true
 
 [permalinks]
   post = "/:year/:month/:slug/"
