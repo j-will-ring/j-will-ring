@@ -35,7 +35,7 @@ enableEmoji = true
 
 [author]
   name = "Jacob Fahringer"
-  bio = "Sports Analytics Blog"
+  bio = "Answering not-so-pressing sports questions with data. Focused on basketball, hockey, and baseball."
   #job = "Your job title"
   location = "Boston, MA"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
