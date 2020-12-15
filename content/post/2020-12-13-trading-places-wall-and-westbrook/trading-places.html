@@ -28,11 +28,11 @@ tags:
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
-<p>When analyzing trades in the NBA, we normally look at things from the perspective of the teams. It makes sense as fans to view a deal through that lens since that’s where we’ve sunk our time, energy, and money into, but when two blue-chip players are involved, we have an opportunity to flip that focus on its side and look at how the players fare in the deal. That’s exactly what we have now with Russell Westbrook and John Wall gearing up for their first games with DC and Houston. On the surface, the two seem like good comparisons to one another: they’re both explosive, ball-dominant guards that have been sidelined in the past with major injuries and are trying to show they haven’t lost a step as they approach 10+ years in the league.</p>
-<p>A broader debate can be had about which city is better (DC) or owner is more difficult to manage (pass), but what does the data say about who won this trade? Is it easier for Wall to plug into Russ’s spot and put up a similar level of production, or will the players in DC help Westbrook play to his strengths and continue his All-NBA play?</p>
+<p>The NBA, more than any other major sport, is built around its players, with their unique skills and personalities driving fan interest and league revenues worldwide. It seems odd then that we only focus on team outcomes when analyzing trades. If it’s the players that really matter, then shouldn’t we also try to determine how their futures are impacted? I’ve decided to make an attempt at filling this gap, digging into the data and projecting who won this winter’s blockbuster trade between John Wall and Russell Westbrook.</p>
+<p>On the surface, the two seem like good comparisons to one another: they’re both explosive, ball-dominant guards that have been sidelined in the past with injuries and are trying to show they haven’t lost a step in the league. But when we look past the narratives, what can the data tell us? Is it easier for Wall to plug into Russ’s spot and put up a similar level of production, or will the players in DC help Westbrook play to his strengths and continue his All-NBA play?</p>
 <div id="russell-westbrook" class="section level2">
 <h2>Russell Westbrook</h2>
-<p>We start with the new Wizards guard by looking at the Net Rating of his lineups since 2015. The goal is to isolate what makes Westbrook’s teams successful when he’s on the court and compare that to what Washington tried to do last season. With any luck, we’ll be able to get a sense of how well Russ’s new teammates can facilitate what he does best.</p>
+<p>We start with the new Wizards guard by looking at all the lineups he’s been a part of since 2015. The goal is to isolate what make Westbrook’s teams successful when he’s on the court and compare that to what Washington excelled at last season. With any luck, we’ll be able to get a sense of what Russ generally needs from the players around him and see how well his new teammates fit that mold.</p>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:russ">Table 1: </span>Table 1: Westbrook Lineup Net Rating
@@ -364,7 +364,7 @@ Personal Fouls
 </tr>
 <tr>
 <td style="text-align:left;">
-Personal Fouls Against
+Personal Fouls Drawn
 </td>
 <td style="text-align:right;color: white !important;background-color: rgba(30, 155, 138, 1) !important;">
 0.21
@@ -381,7 +381,8 @@ Personal Fouls Against
 </tr>
 </tbody>
 </table>
-<p>Using data from NBA.com, I compiled Net Rating and box score stats (per 100 possessions) for the 173 lineups Westbrook played at least 12 minutes with over the past five seasons. The table above shows the coefficients and significance of these stats when regressed on Net Rating. We can see that playing with pace, scoring lots, shooting and rebounding well, and winning the takeaway battle are the significant drivers for success for Westbrook. None of these results are surprising, but they do point toward an up-tempo team focused outscoring opponents versus shutting them down. Perhaps just as important though is what variables are <em>insignificant</em>. Russ’s teams don’t seem to benefit from shooting beyond the arc or moving the ball around for assists. Additionally, having an All-NBA team member on the court (Durant, George, or Harden) seems more likely to have a <em>negative</em> impact than a positive one. This lack of results point towards the same iso-heavy style of play, with most of the attack coming from the mid-range or paint.</p>
+<p>To start, I compiled NBA.com data on Net Rating and box score stats (per 100 possessions) for the lineups Westbrook played with over the past five seasons, restricted to those that played at least 12 minutes together. I used these 173 relevant observations to regress the box score stats on Net Rating and see what had a significant impact on Westbrook’s lineups, creating the table above. We can see that playing with pace, scoring lots, shooting and rebounding well, and winning the takeaway battle are the significant drivers for Westbrook’s success. None of these results are surprising, but they do point towards an up-tempo team focused outscoring opponents versus shutting them down.</p>
+<p>Perhaps just as important though is what variables are <em>insignificant</em>. Russ’s teams don’t seem to benefit from shooting beyond the arc or assisting on shots. Additionally, having an All-NBA team member on the court with him (Kevin Durant, Paul George, or James Harden) seems more likely to have a <em>negative</em> impact than a positive one. These results point towards the same run and gun style of play, with most of the attack coming from mid-range or the paint.</p>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:wizards">Table 2: </span>Table 2: Wizards 2019-2020 Rankings
@@ -494,7 +495,7 @@ Personal Fouls
 </tr>
 <tr>
 <td style="text-align:left;">
-Personal Fouls Against
+Personal Fouls Drawn
 </td>
 <td style="text-align:center;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
 5
@@ -502,11 +503,12 @@ Personal Fouls Against
 </tr>
 </tbody>
 </table>
-<p>Now that we’ve laid out the environment Westbrook thrives in, we can look to see how that gels with what the Wizards did well in 2019-2020. The table above shows how they ranked in each of these categories (again per 100 possessions). Similar to the regression results above, there aren’t many surprises when we look at the Wizards ranks. They were a below average team last season and the box score stats back that up. On the plus side, they played with a lot of pace, essentially matching the speed of the rockets (27.8 vs 27.7 seconds per possession). What is less clear is if this speed was beneficial to the offense. They were middle of the pack in terms of scoring and had a below average shooting percentage despite being proficient from three. This, along with being the worst rebounding team in the league, looks to be the biggest issue when trying to integrate Westbrook into the offense. He, along with free agent signing Robin Lopez, should help improve these ranks but it’s unclear whether the rest of the roster is set up for this style of play. And then there’s the question of how Bradley Beal fits into all of this. Though not technically a member of the All-NBA team, the perennial snub was tied with Westbrook for the fifth highest Usage Rate in the league last season according to Basketball Reference (James Harden was third). This, as we’ve seen throughout Russ’s career, can go both ways and will be fascinating to watch as the season progresses.</p>
+<p>Now that we’ve laid out the environment Westbrook thrives in, we can look to see how that compares with what the Wizards did well in 2019-2020. The table above shows where they ranked in each of the stats used in the regression (again per 100 possessions). Similar to those results above, there aren’t many surprises when we look at the Wizards rankings. They were a below average team last season and the box score stats back that up. Looking at their strengths, we can see that were good at playing at a fast pace, forcing turnovers, and getting to the line. Their high pace is particularly interesting because that’s an important part of Russ’s game and they essentially matched the speed of the rockets (27.8 vs 27.7 seconds per possession).</p>
+<p>It is less clear if this speed was beneficial to the offense, however. Washington was middle of the pack in terms of scoring and had a below average shooting percentage despite being proficient from three (at a low volume). This, along with being the worst rebounding team in the league, looks to be the biggest issue when trying to integrate Westbrook into the team. These numbers will improve with Russ, but a different roster would give him the freedom to be an offensive playmaker instead of carrying the load on both ends of the court. And then there’s Bradley Beal and how he fits into the picture. Though not technically a member of the All-NBA team, the perennial snub was tied with Westbrook for the fifth highest Usage Rate in the league last season according to Basketball Reference. We saw the same dynamic in Houston where Harden ranked third in usage, with the end result being stretches of disjointed offensive play. It’s unfair to assume this new duo will have the same issues as that one but it will be important to keep track of over the next few months and into next spring.</p>
 </div>
 <div id="john-wall" class="section level2">
 <h2>John Wall</h2>
-<p>Next, we turn to Wall and perform the same exercise with his lineup data from 2014-2018. The table below shows that, when healthy, the new Rocket guard found success by playing a similar style to Westbrook. Both players do best when their teams are shooting inside and rebounding efficiently but Wall is a bit less reliant on pushing the pace of play or limiting turnovers. His lineups also benefit from blocking shots and drawing fouls, suggesting a bit more of a physical style on both ends of the court.</p>
+<p>Next, we turn to Wall and perform the same exercise with his lineup data from 2014-2018. The table below shows that, when healthy, the new Rocket guard found success by playing a similar style to Westbrook. Both players do best when their teams are shooting inside and rebounding efficiently but Wall is a bit less reliant on pushing the pace or limiting turnovers. His lineups also benefit from blocking shots and drawing fouls, suggesting a more physical style on both ends of the court.</p>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:wall">Table 3: </span>Table 3: Wall Lineup Net Rating
@@ -821,7 +823,7 @@ Personal Fouls
 </tr>
 <tr>
 <td style="text-align:left;">
-Personal Fouls Against
+Personal Fouls Drawn
 </td>
 <td style="text-align:right;color: white !important;background-color: rgba(59, 187, 117, 1) !important;">
 0.44
@@ -838,7 +840,7 @@ Personal Fouls Against
 </tr>
 </tbody>
 </table>
-<p>With these tendencies in mind, we now turn to the Rockets’ rankings for the 2019-2020 season. What’s surprising is how well they compare to Washington across most of these stats. Both teams push the pace, shoot at a bottom third rate, and rebound and assist poorly. The good news for Wall is that the Rockets score a ton more points despite all of these deficiencies. They also do a good job of forcing turnovers and blocking shots, though two players (Westbrook and Robert Covington) that provided a large chunk of those steals and blocks are now gone. Christian Wood and DeMarcus Cousins signed on in the off-season and should help improve the rebounding numbers but they do little to mitigate the defensive issues caused by the departure of the other two. And none of this factors in the bearded elephant in the room. Currently, the Rockets seem intent on keeping Harden but it’s unclear how the two will get along on the court. In recent years, Wall has had a Usage Rate on par with Paul George, which would slot him in as an ideal second option versus the 1A/1B splits both he and Harden have been accustomed to over the past several years. It remains to be seen however if Wall will be content with this sort of arrangement.</p>
+<p>With these tendencies in mind, we now turn to the Rockets’ rankings for the 2019-2020 season. What’s surprising is how well (poorly?) they compare to Washington across most of these stats. Both teams push the pace, shoot at a bottom third rate, and rebound and assist poorly. The good news for Wall is that the Rockets score a ton more points despite all of these deficiencies. They also do a good job of forcing turnovers and blocking shots but two players that helped make those Houston strengths are now gone (Westbrook and Robert Covington). Christian Wood and DeMarcus Cousins signed on in the off-season and should help improve the rebounding numbers but do little to fill the defensive holes caused by the departure of the other two. And none of this factors in the bearded elephant in the room. Currently, the Rockets seem intent on keeping Harden but it’s unclear if he and Wall will get along better on the court than some of Harden’s previous partners. In recent years, Wall has had a Usage Rate on par with Paul George, which would slot him in as an ideal second option. This is a departure from the 1A/1B splits both he and Harden are accustomed to though, and it remains to be seen if Wall will be content with this sort of arrangement.</p>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:rockets">Table 4: </span>Table 4: Rockets 2019-2020 Rankings
@@ -951,7 +953,7 @@ Personal Fouls
 </tr>
 <tr>
 <td style="text-align:left;">
-Personal Fouls Against
+Personal Fouls Drawn
 </td>
 <td style="text-align:center;color: white !important;background-color: rgba(54, 92, 141, 1) !important;">
 18
@@ -962,6 +964,6 @@ Personal Fouls Against
 </div>
 <div id="final-verdict" class="section level2">
 <h2>Final Verdict</h2>
-<p>Overall, it seems like Westbrook and Wall will be joining fast-paced, iso-heavy teams, a style that plays to both of their strengths. Both will also have to navigate splitting possessions with ball-dominant, All-Star caliber players that may be close to the exit (Beal is a FA in 2021). Wall also has the added challenges of returning to the court for the first time in two years and joining a team trying to determine its identity with a new front office and coach. When you focus solely on the stats though, it still seems like Westbrook comes out slightly ahead of Wall in this trade. The Wizards are going to play very fast, causing havoc on the defensive end and get out in transition for high percentage shots. Russ, in return, will improve their rebounding and shooting, and as a result points per 100 possessions. Barring any fit issues with Beal or growing pains from Hachimura and the other young players in DC, he should be able to return to the All-NBA team and the Wizards to the playoffs. Wall, it should be said, also has the potential to regain his past form with an offense tailored towards his style but may be held back by the shakeups in Houston.</p>
-<p>(<em>“Houston Rockets Basketball Court” by Bukowsky18 is licensed under CC BY-NC-SA 2.0</em>)</p>
+<p>Overall, it seems like Westbrook and Wall will be joining fast-paced, basket-attacking teams, a style that plays to both of their strengths. Both will also have to navigate splitting possessions with ball-dominant, All-Star caliber players that may be close to the exit (Beal is a FA in 2021). Wall also has the added challenges of returning to the court for the first time in two years and joining a team trying to determine its identity with a new front office and coach. When you focus solely on the data though, it still seems like Westbrook comes out slightly ahead of Wall in this trade. The Wizards are going to play very fast, causing havoc on the defensive end and getting out in transition for high percentage shots. Russ, in return, will improve their rebounding and shooting, and scoring as a result. Barring any fit issues with Beal or growing pains from Hachimura and the other young players in DC, he should be able to return to the All-NBA team and bring the Wizards to the playoffs. Wall, it should be said, also has the potential to regain his past form with an offense tailored towards his style but may be held back by the personnel changes in Houston.</p>
+<p>(<em>Photo: “Houston Rockets Basketball Court” by Bukowsky18 is licensed under CC BY-NC-SA 2.0</em>)</p>
 </div>
