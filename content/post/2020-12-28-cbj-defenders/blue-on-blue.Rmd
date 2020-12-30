@@ -1,0 +1,130 @@
+---
+title: 'Blue on Blue: An analytical look at the Columbus defense'
+author: "Jacob Fahringer"
+date: '2020-12-28'
+slug: blue-on-blue
+coverImage: https://live.staticflickr.com/8398/8644681521_1dfac9eb25_b.jpg
+coverMeta: out
+metaAlignment: center
+thumbnailImage: https://live.staticflickr.com/8398/8644681521_1dfac9eb25_b.jpg
+thumbnailImagePosition: left
+disqusIdentifier: fdsF34ff35
+comments: yes
+categories:
+- Team analysis
+tags:
+- Columbus Blue Jackets
+- Hockey
+- Defense
+---
+
+The Blue Jackets entered the 2019-2020 season with several major questions, the most pressing being whether two unproven goalies could replace the consistent, Vezina-level play of Sergei Bobrovsky. Joonas Korpisalo and Elvis Merzlikins responded by providing solid goaltending for most of the season and actually helped improve the team's Goals Against Average from 2.82 to 2.61. None of this occurred in a vacuum however, and a large part of that improvement can be attributed to the defensive corps in front of them. And while it's easy to see the contributions of a player like Seth Jones on tape, quantifying this for every player is much less straightforward. So, in an attempt to better connect what we see with easily available data, I decided to follow Haider Hussain's process for [grouping NBA players by role](https://towardsdatascience.com/using-k-means-clustering-algorithm-to-redefine-nba-positions-and-explore-roster-construction-8cd0f9a96dbb) to identify the different ways defenders in the NHL play and see which Blue Jacket players contributed to their success.  
+
+```{r setup, include=FALSE}
+## Set up environment
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(knitr)
+library(kableExtra)
+library(scatterplot3d)
+library(wesanderson)
+```
+
+```{r factor_table, echo=FALSE, results='asis'}
+factors = read.csv("factors.csv")
+rownames(factors) = c("Penalty Minutes","EV Goals","EV Assists","Shot Attempts","Shooting %","Through %","EV %","EV TOI","Blocks","Hits","Corsi For","Corsi Against","oiShooting %","oiSave %","Offensive ZS %","Takeaways","Giveaways")
+colnames(factors) = c("X","Offense","Finishing","Defense")
+factors = factors[order(factors$Defense),c(4,2,3)]
+factors$Defense = -1*factors$Defense
+tab1 = kable_paper(kable(factors,
+  digits = 2),"hover",full_width=F)
+tab1 = column_spec(tab1, 2, color = "black", background = spec_color(factors[,1], begin = .4))
+tab1 = column_spec(tab1, 3, color = "black", background = spec_color(factors[,2], begin = .4))
+tab1 = column_spec(tab1, 4, color = "black", background = spec_color(factors[,3], begin = .4))
+cat(tab1)
+```
+
+
+As the base for this exercise, I used player stats from Hockey Reference to create a dataset with 17 stats (converted to a per 60 minutes basis where applicable) for the 256 players with at least 120 minutes of ice time in  2019-2020. After standardizing each series with z-scores, Principal Component Analysis was applied to get three factors from the data. These weights, shown in the table above, sacrifice a large portion of the variation found in the original data but have the benefit of reducing everything to three dimensions, and broadly represent offense, defense, and finishing ability. These newly created variables, plotted below, are then used to create six groups with k-means clustering. The tables in the following section present notable players from each of these groups and general observations on what they have in common.
+
+```{r 3d chart, echo=FALSE, results='asis'}
+def = setDT(read.csv("def_full.csv"))
+setnames(def, old = c("defense","offense","finishing"), new = c("Defense","Offense","Finishing"))
+colors <- c("#003f5c","#444e86","#955196","#dd5182","#ff6e54","#ffa600")
+colors <- colors[as.factor(def$cluster)]
+s3d = scatterplot3d(def[,c("Defense","Offense","Finishing")], pch = 16, color=colors, grid=TRUE, box=FALSE)
+```
+
+## Norris Candidates
+```{r norris_chart, echo=FALSE, results='asis'}
+nc = def[cluster=="Norris Candidate",c("player","team","gp","Defense","Offense","Finishing")]
+nc_tab = head(nc[order(-nc$gp)],5)
+colnames(nc_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(nc_tab,
+  digits = 2),"hover",full_width=F)
+```
+The Norris Candidates group contains the most recognizable names and for good reason. These defenders rate out as the best in all three categories and possess the ability to not only dictate play but also put the puck in the back of the net.  
+
+## Two-Way Players
+```{r twp_chart,  echo=FALSE, results='asis'}
+twp = def[cluster=="Two-Way Player",c("player","team","gp","Defense","Offense","Finishing")]
+twp_tab = head(twp[order(-twp$gp)],5)
+colnames(twp_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(twp_tab,
+  digits = 2),"hover",full_width=F)
+```
+This group is similar to the Norris Candidates in terms of defensive impact but lacks some of the offense and finishing skill. That said, these players still provide value at both ends of the ice.  
+
+## Stay-at-Home Defenders
+```{r sah_chart,  echo=FALSE, results='asis'}
+sah = def[cluster=="Stay-at-Home Defender", c("player","team","gp","Defense","Offense","Finishing")]
+sah_tab = head(sah[order(-sah$gp)],5)
+colnames(sah_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(sah_tab,
+  digits = 2),"hover",full_width=F)
+```
+These players may not be as recognizable as the previous two categories but they still have a positive impact on the defensive end. They can't be relied upon on at the other end of the ice however, as they rate out negatively on offense and finishing.  
+
+## Forwards Playing Defense
+```{r fpd_chart,  echo=FALSE, results='asis'}
+fpd = def[cluster=="Forward Playing Defense", c("player","team","gp","Defense","Offense","Finishing")]
+fpd_tab = head(fpd[order(-fpd$gp)],5)
+colnames(fpd_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(fpd_tab,
+  digits = 2),"hover",full_width=F)
+```
+This group is the mirror image of the Stay-at-Home Defenders, as they rank second best in terms of offense and finishing but have a negative impact in their own zone. Interestingly, a lot of players typically perceived as Norris candidates ended up listed here, as their offensive impact mask some of their deficiencies on the other side of the puck.  
+
+## Bottom Pair Players
+```{r bpp_chart,  echo=FALSE, results='asis'}
+bpp = def[cluster=="Bottom Pair Player", c("player","team","gp","Defense","Offense","Finishing")]
+bpp_tab = head(bpp[order(-bpp$gp)],5)
+colnames(bpp_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(bpp_tab,
+  digits = 2),"hover",full_width=F)
+```
+These players are rated as the worst defenders of all six groups and provide almost as much negative value in the offensive zone. There are a few surprising names on this list, which may have just as much to do with the difficulty of estimating defensive impact as their ability.  
+
+## 7th Defenders
+```{r hs_chart,  echo=FALSE, results='asis'}
+hs = def[cluster=="Healthy Scratch", c("player","team","gp","Defense","Offense","Finishing")]
+hs_tab = head(hs[order(-hs$gp)],5)
+colnames(hs_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
+kable_paper(kable(hs_tab,
+  digits = 2),"hover",full_width=F)
+```
+The smallest of the six, this group is made up of players without a lot of ice time. They have a lot of variance but generally struggle on both sides of the puck.  
+
+## Blue Jackets
+```{r cbj_chart,  echo=FALSE, results='asis'}
+cbj = def[team=="CBJ", c("player","cluster","gp","toi_even","Defense","Offense","Finishing")]
+cbj_tab = cbj[order(-cbj$Defense)]
+colnames(cbj_tab) = c("Player","Group","GP","EV TOI","Defense","Offense","Finishing")
+kable_paper(kable(cbj_tab,
+  digits = 2),"hover",full_width=F)
+```
+Now that we've created groups for all the defenders in the league, we can look at where the Columbus players sit among them. Overall, the group has a positive impact on defense, led by Zach Werenski and his Norris Candidate level play. Beyond him, the team had a solid rotation of young defense-first players that add little to the offensive end. It's somewhat surprising to see that Seth Jones has almost no defensive impact, however. He's served as the center piece of the group for the past several years and receives the most praise from the national media, shouldn't the numbers here be similarly glowing? The answer to that question begins to show the limitations of this analytical approach. As the leader of the Blue Jacket defense, Jones has to play the most challenging minutes each evening, meaning we should expect him to allow more offense than someone in a more sheltered role. With this context, it's easier to view his season as productive, though still slightly somewhat underwhelming by his standards. At the bottom of the table, the issues caused by not having situational context come into full view. Vladislav Gavrikov and David Savard play the traditional role of a shutdown line for Columbus and as a result, spend most of their time in the defensive end. This assignment puts them in a position to face a lot of offensive firepower, pushing their ratings negative. Even with that knowledge, it is troubling to see that Savard also adds so little to the offensive end while averaging the third most even strength minutes on the team.  
+
+Looking ahead, it seems like Columbus will continue to be a tough team to score against, with several high-end defensive players. The margins will be slimmer however, as Markus Nutivaara and Ryan Murray were moved out in the off-season. This could be offset by the continued improvement of their young players, a return to full form by Seth Jones, and better contributions from David Savard. 
+
+(*Photo: "Columbus Blue Jackets v St. Louis Blues" by Mathieu Thouvenin is licensed under CC BY-NC-ND 2.0*)

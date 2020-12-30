@@ -11,9 +11,9 @@ thumbnailImagePosition: left
 disqusIdentifier: fdsF34ff34
 comments: true
 categories:
-  - player comparison
+  - Player comparison
 tags:
-  - basketball
+  - Basketball
   - Houston Rockets
   - Washington Wizards
   - John Wall
@@ -45,7 +45,7 @@ westbrook[,stl_tov := stl/tov]
 rus_gression = summary(lm(netrtg ~ factor(season) + all_nba + min100 + pts + fg + p3 + ft + reb100 + ast100 + stl + tov + blk + blka + pf + pfd, data = westbrook[westbrook == 1,]))
 rownames(rus_gression$coefficients) = c("Intercept","2016-2017","2017-2018","2018-2019","2019-2020","All-NBA Teammate","Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turnovers","Blocks","Blocks Against","Personal Fouls","Personal Fouls Drawn")
 column_spec(kable_paper(kable(rus_gression$coefficients,
-  caption = "Table 1: Westbrook Lineup Net Rating",
+  caption = "Westbrook Lineup Net Rating",
   digits = 2),"hover",full_width=F),
   c(2:5),color="white",
   background = spec_color(rus_gression$coefficients[,4],end=.7,direction = -1))
@@ -61,7 +61,7 @@ rname = c("Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turno
 wiz_tab = cbind(rname,wiz_rank)
 column_spec(kable_paper(kable(wiz_tab,
       align = c("l","c"),
-      caption = "Table 2: Wizards 2019-2020 Rankings",
+      caption = "Wizards 2019-2020 Rankings",
       col.names = c("","Rank")),"hover",full_width=F),
       2, color = "white",
       background = spec_color(wiz_rank, end = 0.7, direction = -1))
@@ -82,7 +82,7 @@ wall[,stl_tov := stl/tov]
 wall_gression = summary(lm(netrtg ~ factor(season) + min100 + pts + fg + p3 + ft + reb100 + ast100 + stl + tov + blk + blka + pf + pfd, data = wall))
 rownames(wall_gression$coefficients) = c("Intercept","2015-2016","2016-2017","2017-2018","2018-2019","Pace","Points","FG%","3P%","FT%","Rebounds","Assists","Steals","Turnovers","Blocks","Blocks Against","Personal Fouls","Personal Fouls Drawn")
 column_spec(kable_paper(kable(wall_gression$coefficients,
-  caption = "Table 3: Wall Lineup Net Rating",
+  caption = "Wall Lineup Net Rating",
   digits = 2),"hover",full_width=F),
   c(2:5),color="white",
   background = spec_color(wall_gression$coefficients[,4],end=.7,direction = -1))
@@ -95,7 +95,7 @@ rock_rank = c(2,6,22,24,8,26,29,4,10,11,15,19,18)
 rock_tab = cbind(rname,rock_rank)
 column_spec(kable_paper(kable(rock_tab,
       align = c("l","c"),
-      caption = "Table 4: Rockets 2019-2020 Rankings",
+      caption = "Rockets 2019-2020 Rankings",
       col.names = c("","Rank")),"hover",full_width = F),
       2, color = "white",
       background = spec_color(rock_rank, end = 0.7, direction = -1))

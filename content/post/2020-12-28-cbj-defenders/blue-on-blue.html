@@ -1,0 +1,1309 @@
+---
+title: 'Blue on Blue: An analytical look at the Columbus defense'
+author: "Jacob Fahringer"
+date: '2020-12-28'
+slug: blue-on-blue
+coverImage: https://live.staticflickr.com/8398/8644681521_1dfac9eb25_b.jpg
+coverMeta: out
+metaAlignment: center
+thumbnailImage: https://live.staticflickr.com/8398/8644681521_1dfac9eb25_b.jpg
+thumbnailImagePosition: left
+disqusIdentifier: fdsF34ff35
+comments: yes
+categories:
+- Team analysis
+tags:
+- Columbus Blue Jackets
+- Hockey
+- Defense
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>The Blue Jackets entered the 2019-2020 season with several major questions, the most pressing being whether two unproven goalies could replace the consistent, Vezina-level play of Sergei Bobrovsky. Joonas Korpisalo and Elvis Merzlikins responded by providing solid goaltending for most of the season and actually helped improve the team’s Goals Against Average from 2.82 to 2.61. None of this occurred in a vacuum however, and a large part of that improvement can be attributed to the defensive corps in front of them. And while it’s easy to see the contributions of a player like Seth Jones on tape, quantifying this for every player is much less straightforward. So, in an attempt to better connect what we see with easily available data, I decided to follow Haider Hussain’s process for <a href="https://towardsdatascience.com/using-k-means-clustering-algorithm-to-redefine-nba-positions-and-explore-roster-construction-8cd0f9a96dbb">grouping NBA players by role</a> to identify the different ways defenders in the NHL play and see which Blue Jacket players contributed to their success.</p>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Offensive ZS %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(253, 231, 37, 1) !important;">
+0.78
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(81, 196, 106, 1) !important;">
+0.11
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(30, 156, 137, 1) !important;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shot Attempts
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(162, 218, 55, 1) !important;">
+0.44
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(214, 226, 26, 1) !important;">
+0.60
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(71, 193, 110, 1) !important;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Corsi For
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(158, 217, 58, 1) !important;">
+0.42
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(229, 228, 25, 1) !important;">
+0.65
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(61, 188, 116, 1) !important;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EV %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(101, 203, 94, 1) !important;">
+0.20
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(37, 132, 142, 1) !important;">
+-0.53
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(42, 120, 142, 1) !important;">
+-0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EV Goals
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(98, 203, 95, 1) !important;">
+0.18
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(146, 215, 66, 1) !important;">
+0.36
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(253, 231, 37, 1) !important;">
+0.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Takeaways
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(98, 203, 95, 1) !important;">
+0.18
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(172, 220, 48, 1) !important;">
+0.46
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(59, 187, 117, 1) !important;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shooting %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(81, 196, 106, 1) !important;">
+0.10
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(112, 207, 87, 1) !important;">
+0.24
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(240, 229, 29, 1) !important;">
+0.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EV Assists
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(59, 187, 117, 1) !important;">
+-0.01
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(217, 227, 25, 1) !important;">
+0.61
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(115, 208, 86, 1) !important;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EV TOI
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(45, 178, 125, 1) !important;">
+-0.11
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(253, 231, 37, 1) !important;">
+0.74
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(76, 194, 108, 1) !important;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Giveaways
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(43, 177, 126, 1) !important;">
+-0.12
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(147, 215, 65, 1) !important;">
+0.37
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(32, 146, 140, 1) !important;">
+-0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+oiShooting %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(43, 177, 126, 1) !important;">
+-0.12
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(135, 213, 73, 1) !important;">
+0.32
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(134, 213, 73, 1) !important;">
+0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Through %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(41, 175, 127, 1) !important;">
+-0.14
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(60, 188, 116, 1) !important;">
+0.01
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(147, 215, 65, 1) !important;">
+0.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hits
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(40, 174, 128, 1) !important;">
+-0.15
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(42, 120, 142, 1) !important;">
+-0.65
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(34, 140, 141, 1) !important;">
+-0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Penalty Minutes
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(36, 170, 131, 1) !important;">
+-0.20
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(38, 130, 142, 1) !important;">
+-0.55
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(31, 161, 135, 1) !important;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+oiSave %
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(34, 168, 132, 1) !important;">
+-0.22
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(30, 156, 137, 1) !important;">
+-0.30
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(30, 157, 137, 1) !important;">
+-0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blocks
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(41, 123, 142, 1) !important;">
+-0.69
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(33, 166, 133, 1) !important;">
+-0.20
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(38, 130, 142, 1) !important;">
+-0.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Corsi Against
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(42, 120, 142, 1) !important;">
+-0.72
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(59, 187, 117, 1) !important;">
+0.00
+</td>
+<td style="text-align:right;color: black !important;background-color: rgba(32, 146, 140, 1) !important;">
+-0.10
+</td>
+</tr>
+</tbody>
+</table>
+<p>As the base for this exercise, I used player stats from Hockey Reference to create a dataset with 17 stats (converted to a per 60 minutes basis where applicable) for the 256 players with at least 120 minutes of ice time in 2019-2020. After standardizing each series with z-scores, Principal Component Analysis was applied to get three factors from the data. These weights, shown in the table above, sacrifice a large portion of the variation found in the original data but have the benefit of reducing everything to three dimensions, and broadly represent offense, defense, and finishing ability. These newly created variables, plotted below, are then used to create six groups with k-means clustering. The tables in the following section present notable players from each of these groups and general observations on what they have in common.</p>
+<p><img src="/post/2020-12-28-cbj-defenders/blue-on-blue_files/figure-html/3d%20chart-1.png" width="672" /></p>
+<div id="norris-candidates" class="section level2">
+<h2>Norris Candidates</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Jeff Petry
+</td>
+<td style="text-align:left;">
+MTL
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+5.56
+</td>
+<td style="text-align:right;">
+6.09
+</td>
+<td style="text-align:right;">
+3.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shea Theodore
+</td>
+<td style="text-align:left;">
+VEG
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+9.43
+</td>
+<td style="text-align:right;">
+8.16
+</td>
+<td style="text-align:right;">
+5.73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thomas Chabot
+</td>
+<td style="text-align:left;">
+OTT
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+1.79
+</td>
+<td style="text-align:right;">
+5.69
+</td>
+<td style="text-align:right;">
+1.98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adam Fox
+</td>
+<td style="text-align:left;">
+NYR
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+3.33
+</td>
+<td style="text-align:right;">
+5.32
+</td>
+<td style="text-align:right;">
+4.79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alex Pietrangelo
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+7.06
+</td>
+<td style="text-align:right;">
+6.62
+</td>
+</tr>
+</tbody>
+</table>
+<p>The Norris Candidates group contains the most recognizable names and for good reason. These defenders rate out as the best in all three categories and possess the ability to not only dictate play but also put the puck in the back of the net.</p>
+</div>
+<div id="two-way-players" class="section level2">
+<h2>Two-Way Players</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Neal Pionk
+</td>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+3.09
+</td>
+<td style="text-align:right;">
+2.94
+</td>
+<td style="text-align:right;">
+1.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vince Dunn
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+6.81
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+2.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Matt Roy
+</td>
+<td style="text-align:left;">
+LAK
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mikhail Sergachev
+</td>
+<td style="text-align:left;">
+TBL
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+2.64
+</td>
+<td style="text-align:right;">
+1.69
+</td>
+<td style="text-align:right;">
+2.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rasmus Andersson
+</td>
+<td style="text-align:left;">
+CGY
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+2.17
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+1.52
+</td>
+</tr>
+</tbody>
+</table>
+<p>This group is similar to the Norris Candidates in terms of defensive impact but lacks some of the offense and finishing skill. That said, these players still provide value at both ends of the ice.</p>
+</div>
+<div id="stay-at-home-defenders" class="section level2">
+<h2>Stay-at-Home Defenders</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Brayden McNabb
+</td>
+<td style="text-align:left;">
+VEG
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+-1.27
+</td>
+<td style="text-align:right;">
+-1.78
+</td>
+<td style="text-align:right;">
+-2.69
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brenden Dillon
+</td>
+<td style="text-align:left;">
+TOT
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+-0.53
+</td>
+<td style="text-align:right;">
+-3.84
+</td>
+<td style="text-align:right;">
+-2.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Henri Jokiharju
+</td>
+<td style="text-align:left;">
+BUF
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+-2.49
+</td>
+<td style="text-align:right;">
+-0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jamie Oleksiak
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+1.71
+</td>
+<td style="text-align:right;">
+-2.90
+</td>
+<td style="text-align:right;">
+-1.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nick Jensen
+</td>
+<td style="text-align:left;">
+WSH
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+0.77
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+<td style="text-align:right;">
+-3.98
+</td>
+</tr>
+</tbody>
+</table>
+<p>These players may not be as recognizable as the previous two categories but they still have a positive impact on the defensive end. They can’t be relied upon on at the other end of the ice however, as they rate out negatively on offense and finishing.</p>
+</div>
+<div id="forwards-playing-defense" class="section level2">
+<h2>Forwards Playing Defense</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Darnell Nurse
+</td>
+<td style="text-align:left;">
+EDM
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+<td style="text-align:right;">
+2.41
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ethan Bear
+</td>
+<td style="text-align:left;">
+EDM
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+-0.23
+</td>
+<td style="text-align:right;">
+3.14
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alex Goligoski
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+-2.55
+</td>
+<td style="text-align:right;">
+1.24
+</td>
+<td style="text-align:right;">
+-0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jacob Trouba
+</td>
+<td style="text-align:left;">
+NYR
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+-3.31
+</td>
+<td style="text-align:right;">
+1.78
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marc-Edouard Vlasic
+</td>
+<td style="text-align:left;">
+SJS
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+1.65
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+</tr>
+</tbody>
+</table>
+<p>This group is the mirror image of the Stay-at-Home Defenders, as they rank second best in terms of offense and finishing but have a negative impact in their own zone. Interestingly, a lot of players typically perceived as Norris candidates ended up listed here, as their offensive impact mask some of their deficiencies on the other side of the puck.</p>
+</div>
+<div id="bottom-pair-players" class="section level2">
+<h2>Bottom Pair Players</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Chris Tanev
+</td>
+<td style="text-align:left;">
+VAN
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+-5.89
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+-0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esa Lindell
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+-3.74
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+-0.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+David Savard
+</td>
+<td style="text-align:left;">
+CBJ
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+-6.05
+</td>
+<td style="text-align:right;">
+-2.64
+</td>
+<td style="text-align:right;">
+-3.94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zdeno Chara
+</td>
+<td style="text-align:left;">
+BOS
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+-5.65
+</td>
+<td style="text-align:right;">
+-0.81
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jack Johnson
+</td>
+<td style="text-align:left;">
+PIT
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+-2.47
+</td>
+<td style="text-align:right;">
+-3.44
+</td>
+<td style="text-align:right;">
+-2.22
+</td>
+</tr>
+</tbody>
+</table>
+<p>These players are rated as the worst defenders of all six groups and provide almost as much negative value in the offensive zone. There are a few surprising names on this list, which may have just as much to do with the difficulty of estimating defensive impact as their ability.</p>
+</div>
+<div id="th-defenders" class="section level2">
+<h2>7th Defenders</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ilya Lyubushkin
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+-1.27
+</td>
+<td style="text-align:right;">
+-6.30
+</td>
+<td style="text-align:right;">
+-5.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alex Biega
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+-2.08
+</td>
+<td style="text-align:right;">
+-5.63
+</td>
+<td style="text-align:right;">
+-5.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Korbinian Holzer
+</td>
+<td style="text-align:left;">
+TOT
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+-8.57
+</td>
+<td style="text-align:right;">
+-7.70
+</td>
+<td style="text-align:right;">
+-5.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trevor Daley
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+-3.49
+</td>
+<td style="text-align:right;">
+-3.94
+</td>
+<td style="text-align:right;">
+-5.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roman Polak
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+-8.91
+</td>
+<td style="text-align:right;">
+-6.76
+</td>
+<td style="text-align:right;">
+-6.47
+</td>
+</tr>
+</tbody>
+</table>
+<p>The smallest of the six, this group is made up of players without a lot of ice time. They have a lot of variance but generally struggle on both sides of the puck.</p>
+</div>
+<div id="blue-jackets" class="section level2">
+<h2>Blue Jackets</h2>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Group
+</th>
+<th style="text-align:right;">
+GP
+</th>
+<th style="text-align:right;">
+EV TOI
+</th>
+<th style="text-align:right;">
+Defense
+</th>
+<th style="text-align:right;">
+Offense
+</th>
+<th style="text-align:right;">
+Finishing
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Zach Werenski
+</td>
+<td style="text-align:left;">
+Norris Candidate
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+19.07
+</td>
+<td style="text-align:right;">
+5.50
+</td>
+<td style="text-align:right;">
+6.86
+</td>
+<td style="text-align:right;">
+8.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dean Kukan
+</td>
+<td style="text-align:left;">
+Stay-at-Home Defender
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+14.67
+</td>
+<td style="text-align:right;">
+4.50
+</td>
+<td style="text-align:right;">
+-1.70
+</td>
+<td style="text-align:right;">
+-2.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Markus Nutivaara
+</td>
+<td style="text-align:left;">
+Two-Way Player
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+15.33
+</td>
+<td style="text-align:right;">
+3.19
+</td>
+<td style="text-align:right;">
+-1.35
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Andrew Peeke
+</td>
+<td style="text-align:left;">
+Stay-at-Home Defender
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+13.23
+</td>
+<td style="text-align:right;">
+2.60
+</td>
+<td style="text-align:right;">
+-2.60
+</td>
+<td style="text-align:right;">
+-2.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seth Jones
+</td>
+<td style="text-align:left;">
+Forward Playing Defense
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+19.80
+</td>
+<td style="text-align:right;">
+0.66
+</td>
+<td style="text-align:right;">
+3.72
+</td>
+<td style="text-align:right;">
+2.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ryan Murray
+</td>
+<td style="text-align:left;">
+Forward Playing Defense
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+16.77
+</td>
+<td style="text-align:right;">
+-1.55
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scott Harrington
+</td>
+<td style="text-align:left;">
+Stay-at-Home Defender
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+13.05
+</td>
+<td style="text-align:right;">
+-1.74
+</td>
+<td style="text-align:right;">
+-4.78
+</td>
+<td style="text-align:right;">
+-3.23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vladislav Gavrikov
+</td>
+<td style="text-align:left;">
+Forward Playing Defense
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+17.17
+</td>
+<td style="text-align:right;">
+-1.75
+</td>
+<td style="text-align:right;">
+-0.57
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+David Savard
+</td>
+<td style="text-align:left;">
+Bottom Pair Player
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+18.37
+</td>
+<td style="text-align:right;">
+-6.05
+</td>
+<td style="text-align:right;">
+-2.64
+</td>
+<td style="text-align:right;">
+-3.94
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now that we’ve created groups for all the defenders in the league, we can look at where the Columbus players sit among them. Overall, the group has a positive impact on defense, led by Zach Werenski and his Norris Candidate level play. Beyond him, the team had a solid rotation of young defense-first players that add little to the offensive end. It’s somewhat surprising to see that Seth Jones has almost no defensive impact, however. He’s served as the center piece of the group for the past several years and receives the most praise from the national media, shouldn’t the numbers here be similarly glowing? The answer to that question begins to show the limitations of this analytical approach. As the leader of the Blue Jacket defense, Jones has to play the most challenging minutes each evening, meaning we should expect him to allow more offense than someone in a more sheltered role. With this context, it’s easier to view his season as productive, though still slightly somewhat underwhelming by his standards. At the bottom of the table, the issues caused by not having situational context come into full view. Vladislav Gavrikov and David Savard play the traditional role of a shutdown line for Columbus and as a result, spend most of their time in the defensive end. This assignment puts them in a position to face a lot of offensive firepower, pushing their ratings negative. Even with that knowledge, it is troubling to see that Savard also adds so little to the offensive end while averaging the third most even strength minutes on the team.</p>
+<p>Looking ahead, it seems like Columbus will continue to be a tough team to score against, with several high-end defensive players. The margins will be slimmer however, as Markus Nutivaara and Ryan Murray were moved out in the off-season. This could be offset by the continued improvement of their young players, a return to full form by Seth Jones, and better contributions from David Savard.</p>
+<p>(<em>Photo: “Columbus Blue Jackets v St. Louis Blues” by Mathieu Thouvenin is licensed under CC BY-NC-ND 2.0</em>)</p>
+</div>

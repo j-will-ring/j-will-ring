@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Bully Ball Pit</title>
+    <link>https://lucid-mcclintock-772425.netlify.app/post/</link>
+    <description>Recent content in Posts on Bully Ball Pit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lucid-mcclintock-772425.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blue on Blue: An analytical look at the Columbus defense</title>
+      <link>https://lucid-mcclintock-772425.netlify.app/2020/12/cbj-defenders/</link>
+      <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lucid-mcclintock-772425.netlify.app/2020/12/cbj-defenders/</guid>
+      <description>The Blue Jackets entered the 2019-2020 season with several major questions, the most pressing was whether two unproven goalies could replace the consistent, Vezina-level play of Sergei Bobrovsky. Joonas Korpisalo and Elvis Merzlikins proved themselves by providing solid goal tending for most of the season and actually helped improve the team’s Goals Against Average from 2.82 to 2.61. None of this occurred in a vacuum however, and a large part of that improvement can be attributed to the defensive corps in front of them and their focus on limiting dangerous attempts.</description>
+    </item>
+    
+    <item>
+      <title>Trading Places:  Wall and Westbrook</title>
+      <link>https://lucid-mcclintock-772425.netlify.app/2020/12/trading-places/</link>
+      <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lucid-mcclintock-772425.netlify.app/2020/12/trading-places/</guid>
+      <description>The NBA, more than any other major sport, is built around its players, with their unique skills and personalities driving fan interest and league revenues worldwide. It seems odd then that we only focus on team outcomes when analyzing trades. If it’s the players that really matter, then shouldn’t we also try to determine how their futures are impacted? I’ve decided to make an attempt at filling this gap, digging into the data and projecting who won this winter’s blockbuster trade between John Wall and Russell Westbrook.</description>
+    </item>
+    
+  </channel>
+</rss>
