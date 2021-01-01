@@ -50,9 +50,9 @@ As the base for this exercise, I used player stats from Hockey Reference to crea
 ```{r 3d chart, echo=FALSE, results='asis'}
 def = setDT(read.csv("def_full.csv"))
 setnames(def, old = c("defense","offense","finishing"), new = c("Defense","Offense","Finishing"))
-colors <- c("#003f5c","#444e86","#955196","#dd5182","#ff6e54","#ffa600")
+colors <- c("#955196","#003f5c","#444e86","#dd5182","#ff6e54","#ffa600")
 colors <- colors[as.factor(def$cluster)]
-s3d = scatterplot3d(def[,c("Defense","Offense","Finishing")], pch = 16, color=colors, grid=TRUE, box=FALSE)
+s3d = scatterplot3d(def[,c("Defense","Offense","Finishing")], pch = 16, color=colors)
 ```
 
 ## Norris Candidates
@@ -60,7 +60,7 @@ s3d = scatterplot3d(def[,c("Defense","Offense","Finishing")], pch = 16, color=co
 nc = def[cluster=="Norris Candidate",c("player","team","gp","Defense","Offense","Finishing")]
 nc_tab = head(nc[order(-nc$gp)],5)
 colnames(nc_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(nc_tab,
+kable_paper(kable(nc_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 The Norris Candidates group contains the most recognizable names and for good reason. These defenders rate out as the best in all three categories and possess the ability to not only dictate play but also put the puck in the back of the net.  
@@ -70,7 +70,7 @@ The Norris Candidates group contains the most recognizable names and for good re
 twp = def[cluster=="Two-Way Player",c("player","team","gp","Defense","Offense","Finishing")]
 twp_tab = head(twp[order(-twp$gp)],5)
 colnames(twp_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(twp_tab,
+kable_paper(kable(twp_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 This group is similar to the Norris Candidates in terms of defensive impact but lacks some of the offense and finishing skill. That said, these players still provide value at both ends of the ice.  
@@ -80,7 +80,7 @@ This group is similar to the Norris Candidates in terms of defensive impact but 
 sah = def[cluster=="Stay-at-Home Defender", c("player","team","gp","Defense","Offense","Finishing")]
 sah_tab = head(sah[order(-sah$gp)],5)
 colnames(sah_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(sah_tab,
+kable_paper(kable(sah_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 These players may not be as recognizable as the previous two categories but they still have a positive impact on the defensive end. They can't be relied upon on at the other end of the ice however, as they rate out negatively on offense and finishing.  
@@ -90,7 +90,7 @@ These players may not be as recognizable as the previous two categories but they
 fpd = def[cluster=="Forward Playing Defense", c("player","team","gp","Defense","Offense","Finishing")]
 fpd_tab = head(fpd[order(-fpd$gp)],5)
 colnames(fpd_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(fpd_tab,
+kable_paper(kable(fpd_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 This group is the mirror image of the Stay-at-Home Defenders, as they rank second best in terms of offense and finishing but have a negative impact in their own zone. Interestingly, a lot of players typically perceived as Norris candidates ended up listed here, as their offensive impact mask some of their deficiencies on the other side of the puck.  
@@ -100,7 +100,7 @@ This group is the mirror image of the Stay-at-Home Defenders, as they rank secon
 bpp = def[cluster=="Bottom Pair Player", c("player","team","gp","Defense","Offense","Finishing")]
 bpp_tab = head(bpp[order(-bpp$gp)],5)
 colnames(bpp_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(bpp_tab,
+kable_paper(kable(bpp_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 These players are rated as the worst defenders of all six groups and provide almost as much negative value in the offensive zone. There are a few surprising names on this list, which may have just as much to do with the difficulty of estimating defensive impact as their ability.  
@@ -110,16 +110,16 @@ These players are rated as the worst defenders of all six groups and provide alm
 hs = def[cluster=="Healthy Scratch", c("player","team","gp","Defense","Offense","Finishing")]
 hs_tab = head(hs[order(-hs$gp)],5)
 colnames(hs_tab) = c("Player","Team","GP","Defense","Offense","Finishing")
-kable_paper(kable(hs_tab,
+kable_paper(kable(hs_tab[,c("Player","Team","Defense","Offense","Finishing")],
   digits = 2),"hover",full_width=F)
 ```
 The smallest of the six, this group is made up of players without a lot of ice time. They have a lot of variance but generally struggle on both sides of the puck.  
 
 ## Blue Jackets
 ```{r cbj_chart,  echo=FALSE, results='asis'}
-cbj = def[team=="CBJ", c("player","cluster","gp","toi_even","Defense","Offense","Finishing")]
+cbj = def[team=="CBJ", c("player","cluster","Defense","Offense","Finishing")]
 cbj_tab = cbj[order(-cbj$Defense)]
-colnames(cbj_tab) = c("Player","Group","GP","EV TOI","Defense","Offense","Finishing")
+colnames(cbj_tab) = c("Player","Group","Defense","Offense","Finishing")
 kable_paper(kable(cbj_tab,
   digits = 2),"hover",full_width=F)
 ```
