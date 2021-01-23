@@ -44,7 +44,7 @@ enableEmoji = true
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
   #picture = "https://photos.google.com/photo/AF1QipNhO-WilrwZMn_IEGGK9Rp5IFGhNFBpa4OYccFl"
   # Your Twitter username without the @. E.g : thibaudlepretre
-  # twitter = "El_Penguin_o"
+  twitter = "BullyBallPit1"
 
 # Menu Configuration
 [[menu.main]]
