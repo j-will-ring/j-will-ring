@@ -1,0 +1,405 @@
+---
+title: 'Strife Swap:  Dubois and Laine'
+author: Jacob Fahringer
+date: '2021-01-24'
+slug: strife-swap
+coverImage: "https://cms.nhl.bamgrid.com/images/photos/320615952/1024x576/cut.jpg"
+coverMeta: out
+metaAlignment: center
+thumbnailImage: "https://cms.nhl.bamgrid.com/images/photos/320615952/1024x576/cut.jpg"
+thumbnailImagePosition: left
+disqusIdentifier: fdsF34ff36
+comments: true
+categories:
+  - Player comparison
+tags:
+  - Hockey
+  - Columbus Blue Jackets
+  - Winnipeg Jets
+  - Patrik Laine
+  - Pierre-Luc Dubois
+  - Trade
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>A hockey trade! The Columbus Blue Jackets and the Winnipeg Jets each bit the bullet this weekend and traded their unhappy forwards to each other. This sort of deal is a rarity in the NHL under normal conditions and pulling it off in the middle of the pandemic is almost unfathomable. Understandably, most of the subsequent chatter has been focused on determining which team came out ahead (see Prashanth Iyer’s grades below) but I instead want to take a look at which player comes out best.</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Alright updated the machine to retain 26% of Laine's salary and added in a 2-year contract at $2 million AAV per <a href="https://twitter.com/Aportzline?ref_src=twsrc%5Etfw"><span class="citation">@Aportzline</span></a>. Looks a little closer now. Could go up a bit more depending on what Laine's next contract looks like. <br><br>Projections here via <a href="https://twitter.com/domluszczyszyn?ref_src=twsrc%5Etfw"><span class="citation">@domluszczyszyn</span></a> <a href="https://t.co/W0iBBW38l6">pic.twitter.com/W0iBBW38l6</a>
+</p>
+— Prashanth Iyer (<span class="citation">@iyer_prashanth</span>) <a href="https://twitter.com/iyer_prashanth/status/1353010487747870721?ref_src=twsrc%5Etfw">January 23, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>While Jack Roslovic is an intriguing addition for Columbus, the focus here will be restricted to the major pieces, Patrik Laine and Pierre-Luc Dubois. Each team will certainly alters their strategy to make use of their new weapons but, for now, we have to use the data currently available to see if Dubois can take the next step to becoming a franchise center and if Laine’s finishing success will be further elevated by the Blue Jacket’s playmakers.</p>
+<div id="team-effects" class="section level2">
+<h2>Team Effects</h2>
+<p>We should start by asking the most obvious and important question: how will the two teams’ systems impact the production of Dubois and Laine? To answer that, I pulled player-level data from the 2019-2020 season and regressed adjusted points on player deployment, shooting percentage, and team data, producing the results in the table below. Because the model is forced through the origin, the Columbus and Winnipeg coefficients are difficult to interpret on their own but the main takeaway is that a player on the Jets would be expected to have 11 more adjusted points than someone on the Blue Jackets. This gulf reflects the differences in both the strategy and personnel of these teams. Columbus is built on a stout defense and relies on forcing mistakes to create offense, which doesn’t exactly fit Laine’s habit of camping out and firing one-timers. Winnipeg, on the other hand, likes to force the issue offensively, counting on Hellebuyck to handle any odd-man rushes caused by their over-aggressiveness. This strategy would seem to suit Dubois well, as he excels at carrying the puck in on the rush and creating opportunities for the players around him.</p>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Columbus
+</td>
+<td style="text-align:right;">
+-93.31
+</td>
+<td style="text-align:right;">
+4.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Winnipeg
+</td>
+<td style="text-align:right;">
+-82.28
+</td>
+<td style="text-align:right;">
+4.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Games Played
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shooting %
+</td>
+<td style="text-align:right;">
+4.37
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OZ Start %
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOI
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Non-relevant teams omitted.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> All coefficients significant at .01 level.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Data from Hockey-Reference.com.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="linemates" class="section level2">
+<h2>Linemates</h2>
+<p>This analysis above only provides a high-level estimate of how Dubois and Laine will be impacted by their new systems. To get a finer sense of how they will fit in, we need to look at the lines they’ll be joining. Laine looks to slot in on the top line for the Blue Jackets with Max Domi and Oliver Bjorkstrand. The table below shows their rank in various on-ice stats using 2019-2020 data from Evolving Hockey. Both were among the top forwards in the league in Corsi and expected goals for and above average in terms of team shooting percentage. Bjorkstrand also had one of the best expected goals against rates last season. The percentiles for the players Laine was slated to play most of his minutes with this season, Blake Wheeler and Andrew Copp, are also presented below. The Columbus players rate out better in every stat, suggesting Laine will have more opportunities to produce.</p>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="TRUE">
+Columbus
+</div>
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="TRUE">
+Winnipeg
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Max Domi
+</th>
+<th style="text-align:right;">
+Oliver Bjorkstrand
+</th>
+<th style="text-align:right;">
+Andrew Copp
+</th>
+<th style="text-align:right;">
+Blake Wheeler
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CF/60
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CA/60
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xGF/60
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xGA/60
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sh%
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+55
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Data from Evolving Hockey.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Turning to Dubois, the table below shows the same stats for his new linemates, Copp and Nikolaj Ehlers, as well the player he played the most with in Columbus, Bjorkstrand (his linemate, Mikhail Grigorenko, has no NHL data for last season). Trying to match up against Bjorkstrand in most of these categories is tough but Ehlers looks like he will provide almost as much value in the offensive end. He and Copp are also just as good at preventing shot attempts as Bjorkstrand but that doesn’t translate into the same stellar xGA ranking. This seems to be the biggest challenge for Dubois in Winnipeg. The two-way center won’t have as much defensive support, which may limit his ability to be aggressive.</p>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="TRUE">
+Winnipeg
+</div>
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1">
+<div style="TRUE">
+Columbus
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Andrew Copp
+</th>
+<th style="text-align:right;">
+Nikolaj Ehlers
+</th>
+<th style="text-align:right;">
+Oliver Bjorkstrand
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CF/60
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CA/60
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xGF/60
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xGA/60
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sh%
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Data from Evolving Hockey.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="final-verdict" class="section level2">
+<h2>Final Verdict</h2>
+<p>Taking all this together, it seems that Dubois will be in the better system to produce. He might not be playing with the same level of talent on his line but Winnipeg plays a much more aggressive game offensively, giving him more opportunities. He could fall short of these expectations if he has to take on more defensive responsibility, however. Dubois has gotten the reputation as one of the league’s top two-way centers, and with the Jets deficiencies on the back end, he may be asked to help pick up the slack, limiting what he can do on the other end.</p>
+<p>Laine, meanwhile, seems like a bit of a mismatch for the Blue Jackets on the surface and may have trouble finding opportunities in their defense-first system. He will, however, have the benefit of playing with two players that are better at driving play than his previous linemates. This, along with the defensive corps freeing him from as much responsibility at that end of the ice, are the biggest things for Laine to look forward to with his new team. He’ll also be given the chance to revive Columbus’s terrible power play but that’s been shown to be easier said than done.</p>
+</div>
