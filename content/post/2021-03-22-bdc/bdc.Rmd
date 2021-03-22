@@ -2,7 +2,7 @@
 title: 'Hot Routes: An analysis of powerplay entry paths'
 author: "Jacob Fahringer"
 date: '2021-03-22'
-slug: hall-of-shame
+slug: hot-routes
 coverImage: https://upload.wikimedia.org/wikipedia/commons/e/ea/Bostonpride2016.jpg
 coverMeta: out
 metaAlignment: center
