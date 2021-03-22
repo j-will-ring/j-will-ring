@@ -39,7 +39,8 @@ dump_play_bar = setDT(read.csv("dump_play_bar.csv"))
 load("play_list.RData")
 ```
 
-## Introduction
+*Note: This article was originally submitted as a paper for the 2021 Big Data Cup. Many thanks to Stathletes and the Ottawa Hockey Analytics Conference for the data and opportunity.*  
+
 Power plays provide a great opportunity for teams to create offense. The time and space afforded by the opponent having one less player on the ice allows the power play team to better control the puck and work towards high-danger scoring opportunities. This is assuming, of course, that the team on the advantage can establish possession in the offensive zone. These entry attempts are some of the more regularly "drawn-up" plays in hockey, making them an interesting candidate for a route recognition model, similar to what Next Gen Stats has been able to create for wide receiver routes with NFL tracking data.[^1] This paper uses event-level data from the NWHL, NCAA, and 2018 Woman's Hockey Olympic Tournament to determine the most common entry routes and makes the argument that more complex routes do not result in better offensive opportunities. The key takeaway from this analysis is that teams should "take what the defense is giving them" and follow the path of least resistance to the offensive zone. Section 2 provides a description of the data, section 3 discusses the methodology, and section 4 presents the main results. Section 5 concludes.  
 
 [^1]: Next Gen Stats: Intro to new Route Recognition Model. www.nfl.com/news/next-gen-stats-intro-to-new-route-recognition-model
